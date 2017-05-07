@@ -3,19 +3,24 @@
            [ring.middleware.defaults :refer :all]
            [ring.middleware.x-headers :refer :all]
            [clojure.pprint :refer (pprint)]
+           [clojure.core.async :refer (alts!! <!! >!! go timeout chan close!)]
            [paste-bin.pastes :as pastes]
            [taoensso.faraday :as far])
   (:gen-class))
 
 (defn on-post [key body]
-  {:status 200
-   :headers {"Content-Type" "text/plain"}
-   :body (pastes/post key (slurp body))})
+  (let [c (chan)]
+    (go (>!! c {:status 200
+                :headers {"Content-Type" "text/plain"}
+                :body (pastes/post key (slurp body))})
+        (close! c))
+    (let [[result source] (alts!! [c (timeout 10000)])]
+          (if (= source c) result {:status 500}))))
 
 (defn on-get [key]
   {:status 200
    :headers {"Content-Type" "text/plain"}
-   :body (or (pastes/find key) "")})
+   :body (or (pastes/recover key) "")})
 
 (defn handler [request]
   (let [key (subs (:uri request) 1)
