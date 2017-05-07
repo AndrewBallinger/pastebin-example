@@ -4,8 +4,7 @@
            [ring.middleware.x-headers :refer :all]
            [clojure.pprint :refer (pprint)]
            [clojure.core.async :refer (alts!! <!! >!! go timeout chan close!)]
-           [paste-bin.pastes :as pastes]
-           [taoensso.faraday :as far])
+           [paste-bin.pastes :as pastes])
   (:gen-class))
 
 (defn on-post [key body]
