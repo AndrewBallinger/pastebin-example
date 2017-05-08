@@ -17,6 +17,8 @@ Otherwise you can build a jar with
 followed by 
 `lein uberjar`.
 
+You can run the (3 whole) tests with `lein test`.
+
 ## Examples
 
 POST any string to the running service. You will get back in the body a key.
