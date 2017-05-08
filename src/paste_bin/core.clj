@@ -15,7 +15,7 @@
 (defn on-get [key]
   {:status 200
    :headers {"Content-Type" "text/plain"}
-   :body (or (pastes/recover key) "")})
+   :body (or (pastes/recover key) (pastes/recover "index"))})
 
 (defn handler [request]
   (let [key (subs (:uri request) 1)
