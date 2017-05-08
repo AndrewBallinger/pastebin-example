@@ -13,9 +13,14 @@
    :body (pastes/post key (scrub (slurp body)))})
 
 (defn on-get [key]
-  {:status 200
-   :headers {"Content-Type" "text/plain"}
-   :body (or (pastes/recover key) (pastes/recover "index"))})
+  (let [result (pastes/recover key)]
+    (if (nil? result)
+      {:status 200
+       :headers {"Content-Type" "text/plain"}
+       :body (pastes/recover "index")}
+      {:status 200
+       :headers {"Content-Type" "text/plain"}
+       :body result})))
 
 (defn handler [request]
   (let [key (subs (:uri request) 1)
