@@ -12,9 +12,6 @@
                     )
                    "\\)")))
 
-(deftest test-matcher
-  (is (re-matches various-naughty-bad-bad-matcher "buttpirate")))
-
 (defn replace-naughty [word]
   (let [target (lower-case word)]
     (cond
@@ -31,9 +28,3 @@
 
 (defn scrub [string]
   (join "\n" (map scrub-line (split-lines string))))
-
-(deftest check-replacement
-  (is (= (scrub "fuck\nyou") "frak\nyou")))
-
-(deftest check-extended
-  (is (= (scrub "The prime minister is a buttpirate yo") "The prime minister is a !@#$% yo")))
