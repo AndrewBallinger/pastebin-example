@@ -1,36 +1,32 @@
 # paste-bin
 
-FIXME: description
+Little pastebin application.
+However, since pastebins can be used for EVIL, this pastebin filters out any NAUGHTY WORDS you naughty lad/lass you.
 
 ## Installation
 
-Download from http://example.com/FIXME.
+Requires leiningen to build:
+https://leiningen.org/
 
 ## Usage
 
-FIXME: explanation
+Running locally in dev mode is as easy as `lein run 3000` to listen on port 3000.
 
-    $ java -jar paste-bin-0.1.0-standalone.jar [args]
-
-## Options
-
-FIXME: listing of options this app accepts.
+Otherwise you can build a jar with
+`lein compile`
+followed by 
+`lein uberjar`.
 
 ## Examples
 
-...
+POST any string to the running service. You will get back in the body a key.
+GET at <url>/key will give you your string back (with some tasteful alterations).
 
-### Bugs
-
-...
-
-### Any Other Sections
-### That You Think
-### Might be Useful
+POST to any <url>/key to override that value!
 
 ## License
 
-Copyright © 2017 FIXME
+Copyright © 2017 Andrew Ballinger
 
 Distributed under the Eclipse Public License either version 1.0 or (at
 your option) any later version.

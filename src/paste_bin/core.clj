@@ -33,5 +33,6 @@
 (defn -main
   "When executed, runs a jetty server"
   [& args]
-  (pprint "Listening on port 3000")
-  (run-jetty site {:port 3000 :join? true}))
+  (let [port (Integer/parseInt (first args))]
+    (pprint (str "Attaching to port " port))
+    (run-jetty site {:port port :join? true})))
